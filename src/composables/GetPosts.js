@@ -1,4 +1,6 @@
 import { ref } from 'vue'
+import { firebaseApp } from '../firebase/config'
+import { getFirestore, collection, query, getDocs, connectFirestoreEmulator } from "firebase/firestore"
 
 const getPosts = () => {
   const posts = ref([])
@@ -6,13 +8,16 @@ const getPosts = () => {
 
   const load = async () => {
     try {
+      //creates connection to collection
+      const db = getFirestore(firebaseApp);
 
-      let data = await fetch('http://localhost:3000/posts')
-      if(!data.ok) {
-        throw Error('no available data')
-      }
-      posts.value = await data.json()
-      console.log(posts.value)
+      const q = query(collection(db, "posts"));
+
+      const querySnapshot = await getDocs(q);
+
+      posts.value = querySnapshot.docs.map(doc => {
+        return { ...doc.data(), id: doc.id }
+      })
     }
     catch(err) {
       error.value = err.message

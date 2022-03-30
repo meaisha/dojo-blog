@@ -7,6 +7,7 @@
       <TagCloud :posts="posts" />
     </div>
     <div v-else><Spinner /></div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, atque. Numquam commodi, facere ut eos aliquid blanditiis! Doloribus, sit. Dolores, molestiae fugiat incidunt commodi adipisci porro placeat molestias minima perspiciatis!
     
   </div>
 </template>

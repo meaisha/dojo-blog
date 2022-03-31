@@ -12,7 +12,7 @@
       @keydown.enter.prevent="handleKeydown"
     >
     <div v-for="tag in tags" :key="tag" class="pill">#{{ tag }}</div>
-    <button @click="">Add Post</button>
+    <button>Add Post</button>
   </form>
 </div>
 </template>
@@ -20,6 +20,9 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { db } from '../firebase/config'
+import { collection, addDoc } from "firebase/firestore"; 
+
 export default {
   setup() {
     const title = ref(null)
@@ -43,11 +46,19 @@ export default {
         body: body.value,
         tags: tags.value
       }
-      await fetch('http://localhost:3000/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(post)
-      })
+
+
+      // Add a new document with a generated id.
+      const docRef = await addDoc(collection(db, "posts"), post);
+      console.log("Document written with ID: ", docRef.id);
+
+      //console.log("res", res)
+
+      // await fetch('http://localhost:3000/posts', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(post)
+      // })
 
       router.push({ name: 'home' })
     }

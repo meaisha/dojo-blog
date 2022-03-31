@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import { firebaseApp } from '../firebase/config'
-import { getFirestore, collection, query, getDocs, connectFirestoreEmulator } from "firebase/firestore"
+import { db } from '../firebase/config'
+import { collection, query, getDocs } from "firebase/firestore"
 
 const getPosts = () => {
   const posts = ref([])
@@ -8,8 +8,6 @@ const getPosts = () => {
 
   const load = async () => {
     try {
-      //creates connection to collection
-      const db = getFirestore(firebaseApp);
 
       const q = query(collection(db, "posts"));
 

@@ -10,7 +10,7 @@ const getPost = (id) => {
 
   const load = async () => {
     try {
-
+      
       const docRef = doc(db, "posts", id);
       const docSnap = await getDoc(docRef);
 

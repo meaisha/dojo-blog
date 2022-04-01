@@ -21,7 +21,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { db } from '../firebase/config'
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
 
 export default {
   setup() {
@@ -44,7 +44,8 @@ export default {
       const post = {
         title: title.value,
         body: body.value,
-        tags: tags.value
+        tags: tags.value,
+        createdAt:  serverTimestamp()
       }
 
 
@@ -53,12 +54,6 @@ export default {
       console.log("Document written with ID: ", docRef.id);
 
       //console.log("res", res)
-
-      // await fetch('http://localhost:3000/posts', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(post)
-      // })
 
       router.push({ name: 'home' })
     }

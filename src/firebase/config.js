@@ -16,6 +16,16 @@ const firebaseApp = initializeApp(firebaseConfig);
 //creates connection to collection
 const db = getFirestore(firebaseApp);
 
+//timestamp
+// import { updateDoc, serverTimestamp } from "firebase/firestore";
+
+// const docRef = doc(db, 'objects', 'some-id');
+
+// // Update the timestamp field with the value from the server
+// const updateTimestamp = await updateDoc(docRef, {
+//     timestamp: serverTimestamp()
+// });
+
 export { firebaseApp, db }
 
 

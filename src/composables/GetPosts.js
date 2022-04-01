@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { db } from '../firebase/config'
-import { collection, query, getDocs } from "firebase/firestore"
+import { collection, query, getDocs, orderBy, limit } from "firebase/firestore"
 
 const getPosts = () => {
   const posts = ref([])
@@ -9,7 +9,8 @@ const getPosts = () => {
   const load = async () => {
     try {
 
-      const q = query(collection(db, "posts"));
+      //const q = query(collection(db, "posts"), orderBy("createdAt"), limit(2));
+      const q = query(collection(db, "posts"), orderBy("createdAt"));
 
       const querySnapshot = await getDocs(q);
 
